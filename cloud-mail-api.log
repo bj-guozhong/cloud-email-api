@@ -1,0 +1,144 @@
+2023-12-19 09:00:47.263  INFO 13680 --- [main] com.cmg.CloudMailApiApplication          : Starting CloudMailApiApplication using Java 1.8.0_152 on ZHANGGUOZHONG with PID 13680 (D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api\target\classes started by 40613 in D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api)
+2023-12-19 09:00:47.269  INFO 13680 --- [main] com.cmg.CloudMailApiApplication          : No active profile set, falling back to default profiles: default
+2023-12-19 09:00:49.074  INFO 13680 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2023-12-19 09:00:49.083  INFO 13680 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-19 09:00:49.084  INFO 13680 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2023-12-19 09:00:49.213  INFO 13680 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-19 09:00:49.213  INFO 13680 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1838 ms
+2023-12-19 09:00:50.071  INFO 13680 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2023-12-19 09:00:50.079  INFO 13680 --- [main] com.cmg.CloudMailApiApplication          : Started CloudMailApiApplication in 3.541 seconds (JVM running for 5.489)
+2023-12-19 09:01:49.356  INFO 9756 --- [main] com.cmg.CloudMailApiApplication          : Starting CloudMailApiApplication using Java 1.8.0_152 on ZHANGGUOZHONG with PID 9756 (D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api\target\classes started by 40613 in D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api)
+2023-12-19 09:01:49.359  INFO 9756 --- [main] com.cmg.CloudMailApiApplication          : No active profile set, falling back to default profiles: default
+2023-12-19 09:01:50.129  INFO 9756 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2023-12-19 09:01:50.136  INFO 9756 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-19 09:01:50.137  INFO 9756 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2023-12-19 09:01:50.211  INFO 9756 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-19 09:01:50.212  INFO 9756 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 800 ms
+2023-12-19 09:01:50.526  INFO 9756 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2023-12-19 09:01:50.535  INFO 9756 --- [main] com.cmg.CloudMailApiApplication          : Started CloudMailApiApplication in 1.63 seconds (JVM running for 2.951)
+2023-12-19 09:02:59.714  INFO 9756 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-19 09:02:59.715  INFO 9756 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-19 09:02:59.717  INFO 9756 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2023-12-19 09:57:03.681  INFO 20716 --- [main] com.cmg.CloudMailApiApplication          : Starting CloudMailApiApplication using Java 1.8.0_152 on ZHANGGUOZHONG with PID 20716 (D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api\target\classes started by 40613 in D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api)
+2023-12-19 09:57:03.683  INFO 20716 --- [main] com.cmg.CloudMailApiApplication          : No active profile set, falling back to default profiles: default
+2023-12-19 09:57:04.483  INFO 20716 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2023-12-19 09:57:04.490  INFO 20716 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-19 09:57:04.490  INFO 20716 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2023-12-19 09:57:04.570  INFO 20716 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-19 09:57:04.570  INFO 20716 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 833 ms
+2023-12-19 09:57:04.908  INFO 20716 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2023-12-19 09:57:04.917  INFO 20716 --- [main] com.cmg.CloudMailApiApplication          : Started CloudMailApiApplication in 1.698 seconds (JVM running for 2.961)
+2023-12-19 09:59:25.139  INFO 20716 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-19 09:59:25.139  INFO 20716 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-19 09:59:25.141  INFO 20716 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-12-19 10:06:24.566  INFO 9840 --- [main] com.cmg.CloudMailApiApplication          : Starting CloudMailApiApplication using Java 1.8.0_152 on ZHANGGUOZHONG with PID 9840 (D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api\target\classes started by 40613 in D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api)
+2023-12-19 10:06:24.569  INFO 9840 --- [main] com.cmg.CloudMailApiApplication          : No active profile set, falling back to default profiles: default
+2023-12-19 10:06:25.285  INFO 9840 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2023-12-19 10:06:25.291  INFO 9840 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-19 10:06:25.292  INFO 9840 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2023-12-19 10:06:25.368  INFO 9840 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-19 10:06:25.368  INFO 9840 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 752 ms
+2023-12-19 10:06:25.687  INFO 9840 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2023-12-19 10:06:25.694  INFO 9840 --- [main] com.cmg.CloudMailApiApplication          : Started CloudMailApiApplication in 1.581 seconds (JVM running for 2.867)
+2023-12-19 10:06:30.323  INFO 9840 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-19 10:06:30.324  INFO 9840 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-19 10:06:30.324  INFO 9840 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-12-19 10:06:33.773  INFO 9840 --- [http-nio-8081-exec-1] com.cmg.mail.services.ProcessorService   : ---------------------------emailType:Drafts
+2023-12-19 10:07:45.114  INFO 21780 --- [main] com.cmg.CloudMailApiApplication          : Starting CloudMailApiApplication using Java 1.8.0_152 on ZHANGGUOZHONG with PID 21780 (D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api\target\classes started by 40613 in D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api)
+2023-12-19 10:07:45.117  INFO 21780 --- [main] com.cmg.CloudMailApiApplication          : No active profile set, falling back to default profiles: default
+2023-12-19 10:07:45.869  INFO 21780 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2023-12-19 10:07:45.877  INFO 21780 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-19 10:07:45.877  INFO 21780 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2023-12-19 10:07:45.952  INFO 21780 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-19 10:07:45.953  INFO 21780 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 787 ms
+2023-12-19 10:07:46.257  INFO 21780 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2023-12-19 10:07:46.264  INFO 21780 --- [main] com.cmg.CloudMailApiApplication          : Started CloudMailApiApplication in 1.541 seconds (JVM running for 2.853)
+2023-12-19 10:07:56.765  INFO 21780 --- [http-nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-19 10:07:56.765  INFO 21780 --- [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-19 10:07:56.766  INFO 21780 --- [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-12-19 10:07:58.068  INFO 21780 --- [http-nio-8081-exec-2] com.cmg.mail.services.ProcessorService   : ---------------------------emailType:Drafts
+2023-12-19 10:07:58.068  INFO 21780 --- [http-nio-8081-exec-2] com.cmg.mail.services.ProcessorService   : ---------------------------2222222222222:
+2023-12-19 10:08:34.908  INFO 4168 --- [main] com.cmg.CloudMailApiApplication          : Starting CloudMailApiApplication using Java 1.8.0_152 on ZHANGGUOZHONG with PID 4168 (D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api\target\classes started by 40613 in D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api)
+2023-12-19 10:08:34.912  INFO 4168 --- [main] com.cmg.CloudMailApiApplication          : No active profile set, falling back to default profiles: default
+2023-12-19 10:08:35.715  INFO 4168 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2023-12-19 10:08:35.723  INFO 4168 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-19 10:08:35.723  INFO 4168 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2023-12-19 10:08:35.798  INFO 4168 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-19 10:08:35.799  INFO 4168 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 832 ms
+2023-12-19 10:08:36.119  INFO 4168 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2023-12-19 10:08:36.127  INFO 4168 --- [main] com.cmg.CloudMailApiApplication          : Started CloudMailApiApplication in 1.668 seconds (JVM running for 2.999)
+2023-12-19 10:08:42.423  INFO 4168 --- [http-nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-19 10:08:42.424  INFO 4168 --- [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-19 10:08:42.424  INFO 4168 --- [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-12-19 10:08:43.636  INFO 4168 --- [http-nio-8081-exec-2] com.cmg.mail.services.ProcessorService   : ---------------------------emailType:Drafts
+2023-12-19 10:08:43.637  INFO 4168 --- [http-nio-8081-exec-2] com.cmg.mail.services.ProcessorService   : ---------------------------FOLDER_TYPE_DRAFTS:FOLDER_TYPE_DRAFTS
+2023-12-19 10:08:43.638  INFO 4168 --- [http-nio-8081-exec-2] com.cmg.mail.services.ProcessorService   : ---------------------------2222222222222:
+2023-12-19 10:09:44.898  INFO 8848 --- [main] com.cmg.CloudMailApiApplication          : Starting CloudMailApiApplication using Java 1.8.0_152 on ZHANGGUOZHONG with PID 8848 (D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api\target\classes started by 40613 in D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api)
+2023-12-19 10:09:44.901  INFO 8848 --- [main] com.cmg.CloudMailApiApplication          : No active profile set, falling back to default profiles: default
+2023-12-19 10:09:45.614  INFO 8848 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2023-12-19 10:09:45.621  INFO 8848 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-19 10:09:45.621  INFO 8848 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2023-12-19 10:09:45.697  INFO 8848 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-19 10:09:45.697  INFO 8848 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 747 ms
+2023-12-19 10:09:46.006  INFO 8848 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2023-12-19 10:09:46.013  INFO 8848 --- [main] com.cmg.CloudMailApiApplication          : Started CloudMailApiApplication in 1.509 seconds (JVM running for 2.799)
+2023-12-19 10:09:49.990  INFO 8848 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-19 10:09:49.991  INFO 8848 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-19 10:09:49.992  INFO 8848 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-12-19 10:09:51.117  INFO 8848 --- [http-nio-8081-exec-1] com.cmg.mail.services.ProcessorService   : ---------------------------emailType:Drafts
+2023-12-19 10:09:51.118  INFO 8848 --- [http-nio-8081-exec-1] com.cmg.mail.services.ProcessorService   : ---------------------------FOLDER_TYPE_DRAFTS:FOLDER_TYPE_DRAFTS
+2023-12-19 10:09:51.118  INFO 8848 --- [http-nio-8081-exec-1] com.cmg.mail.services.ProcessorService   : ---------------------------1111111111111111:
+2023-12-19 10:15:44.416  INFO 7748 --- [main] com.cmg.CloudMailApiApplication          : Starting CloudMailApiApplication using Java 1.8.0_152 on ZHANGGUOZHONG with PID 7748 (D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api\target\classes started by 40613 in D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api)
+2023-12-19 10:15:44.419  INFO 7748 --- [main] com.cmg.CloudMailApiApplication          : No active profile set, falling back to default profiles: default
+2023-12-19 10:15:45.124  INFO 7748 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2023-12-19 10:15:45.131  INFO 7748 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-19 10:15:45.132  INFO 7748 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2023-12-19 10:15:45.206  INFO 7748 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-19 10:15:45.206  INFO 7748 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 737 ms
+2023-12-19 10:15:45.518  INFO 7748 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2023-12-19 10:15:45.526  INFO 7748 --- [main] com.cmg.CloudMailApiApplication          : Started CloudMailApiApplication in 1.507 seconds (JVM running for 2.799)
+2023-12-19 10:15:49.694  INFO 7748 --- [http-nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-19 10:15:49.695  INFO 7748 --- [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-19 10:15:49.695  INFO 7748 --- [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-12-19 10:15:53.217  INFO 7748 --- [http-nio-8081-exec-2] com.cmg.mail.services.ProcessorService   : ---------------------------1111111111111111:
+2023-12-19 10:15:54.584  INFO 7748 --- [http-nio-8081-exec-2] com.cmg.mail.services.ProcessorService   : ---------------------------2222222222222:
+2023-12-19 10:21:57.221  INFO 16352 --- [main] com.cmg.CloudMailApiApplication          : Starting CloudMailApiApplication using Java 1.8.0_152 on ZHANGGUOZHONG with PID 16352 (D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api\target\classes started by 40613 in D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api)
+2023-12-19 10:21:57.224  INFO 16352 --- [main] com.cmg.CloudMailApiApplication          : No active profile set, falling back to default profiles: default
+2023-12-19 10:21:57.908  INFO 16352 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2023-12-19 10:21:57.916  INFO 16352 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-19 10:21:57.916  INFO 16352 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2023-12-19 10:21:57.991  INFO 16352 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-19 10:21:57.991  INFO 16352 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 729 ms
+2023-12-19 10:21:58.301  INFO 16352 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2023-12-19 10:21:58.309  INFO 16352 --- [main] com.cmg.CloudMailApiApplication          : Started CloudMailApiApplication in 1.516 seconds (JVM running for 2.798)
+2023-12-19 10:22:06.954  INFO 16352 --- [http-nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-19 10:22:06.955  INFO 16352 --- [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-19 10:22:06.955  INFO 16352 --- [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-12-19 10:22:31.247  INFO 16352 --- [http-nio-8081-exec-4] com.cmg.mail.services.ProcessorService   : ---------------------------1111111111111111:
+2023-12-19 10:22:31.256  INFO 16352 --- [http-nio-8081-exec-4] com.cmg.mail.services.ProcessorService   : ---------------------------2222222222222:
+2023-12-19 10:25:21.942  INFO 16352 --- [http-nio-8081-exec-10] com.cmg.mail.services.ProcessorService   : ---------------------------1111111111111111:
+2023-12-19 10:25:21.948  INFO 16352 --- [http-nio-8081-exec-10] com.cmg.mail.services.ProcessorService   : ---------------------------2222222222222:
+2023-12-19 10:32:12.834  INFO 16412 --- [main] com.cmg.CloudMailApiApplication          : Starting CloudMailApiApplication using Java 1.8.0_152 on ZHANGGUOZHONG with PID 16412 (D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api\target\classes started by 40613 in D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api)
+2023-12-19 10:32:12.837  INFO 16412 --- [main] com.cmg.CloudMailApiApplication          : No active profile set, falling back to default profiles: default
+2023-12-19 10:32:13.562  INFO 16412 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2023-12-19 10:32:13.569  INFO 16412 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-19 10:32:13.569  INFO 16412 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2023-12-19 10:32:13.644  INFO 16412 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-19 10:32:13.644  INFO 16412 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 771 ms
+2023-12-19 10:32:13.956  INFO 16412 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2023-12-19 10:32:13.964  INFO 16412 --- [main] com.cmg.CloudMailApiApplication          : Started CloudMailApiApplication in 1.6 seconds (JVM running for 2.917)
+2023-12-19 10:32:25.581  INFO 16412 --- [http-nio-8081-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-19 10:32:25.581  INFO 16412 --- [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-19 10:32:25.582  INFO 16412 --- [http-nio-8081-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-12-19 10:43:20.836  INFO 24608 --- [main] com.cmg.CloudMailApiApplication          : Starting CloudMailApiApplication using Java 1.8.0_152 on ZHANGGUOZHONG with PID 24608 (D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api\target\classes started by 40613 in D:\dev\ctvit2020_prj\idea_workspace\cloud-mail-api)
+2023-12-19 10:43:20.839  INFO 24608 --- [main] com.cmg.CloudMailApiApplication          : No active profile set, falling back to default profiles: default
+2023-12-19 10:43:21.609  INFO 24608 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2023-12-19 10:43:21.616  INFO 24608 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-19 10:43:21.617  INFO 24608 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2023-12-19 10:43:21.692  INFO 24608 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-19 10:43:21.692  INFO 24608 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 809 ms
+2023-12-19 10:43:22.002  INFO 24608 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2023-12-19 10:43:22.009  INFO 24608 --- [main] com.cmg.CloudMailApiApplication          : Started CloudMailApiApplication in 1.6 seconds (JVM running for 2.905)
+2023-12-19 10:43:27.326  INFO 24608 --- [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-19 10:43:27.326  INFO 24608 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-19 10:43:27.327  INFO 24608 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
