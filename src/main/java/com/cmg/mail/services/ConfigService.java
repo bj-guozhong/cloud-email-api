@@ -47,16 +47,13 @@ public class ConfigService {
 	}
 
 	public Properties configSmtp(String username,String password){
-		// imap配置，可保存到properties文件，读取
+		// smtp配置，可保存到properties文件，读取
 		Properties props = new Properties();
 		props.setProperty(MailEnum.PROPS_MAIL_SMTP_HOST.getLabel(), smtpHost);
 		props.setProperty(MailEnum.PROPS_MAIL_SMTP_PORT.getLabel(), smtpPort);
 		// 需要认证
 		props.setProperty(MailEnum.PROPS_MAIL_SMTP_AUTH.getLabel(), smtpAuth);
-		//props.setProperty(MailEnum.PROPS_MAIL_SMTP_USER.getLabel(), username);
-		//props.setProperty(MailEnum.PROPS_MAIL_SMTP_PASS.getLabel(), password);
 		props.setProperty(MailEnum.PROPS_MAIL_SMTP_STARTTLS.getLabel(), smtpStarttls);
-
 		// 使用ssl
 		props.put(MailEnum.PROPS_MAIL_SMTP_SOCKET_CLASS.getLabel(), MailEnum.PROPS_MAIL_SMTP_SOCKET_SSL.getLabel());
 		props.setProperty(MailEnum.PROPS_MAIL_SMTP_PROTOCOL.getLabel(), MailEnum.PROPS_MAIL_SMTP_PROTOCOL_VALUE.getLabel());

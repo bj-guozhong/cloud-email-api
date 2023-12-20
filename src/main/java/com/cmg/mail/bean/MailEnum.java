@@ -34,8 +34,9 @@ public enum MailEnum {
     PROPS_MAIL_SMTP_SOCKET_SSL("javax.net.ssl.SSLSocketFactory"),
     PROPS_MAIL_SMTP_SOCKET_CLASS("mail.smtp.socketFactory.class"),
     PROPS_MAIL_SMTP_PROTOCOL("mail.transport.protocol"),
-    PROPS_MAIL_SMTP_PROTOCOL_VALUE("smtp");
+    PROPS_MAIL_SMTP_PROTOCOL_VALUE("smtp"),
 
+    ALREADY_DELETE_FLAG("已删除");
 
     private final String label;
 

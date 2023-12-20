@@ -44,13 +44,18 @@ public class SendController {
                                 @ApiParam(name = "from", value = "发件人", required = true)
                                   @RequestParam(name="from",required = true) String from,
                                 @ApiParam(name = "to", value = "收件人", required = true)
-                                    @RequestParam(name="to",required = true) String to,
+                                    @RequestParam(name="to",required = true) String[] to,
                                 @ApiParam(name = "subject", value = "邮件标题", required = true)
                                     @RequestParam(name="subject",required = true) String subject,
                                 @ApiParam(name = "content", value = "邮件正文", required = true)
                                 @RequestParam(name="content",required = false) String content
                                 ) {
-        return sendService.sendEmail(username,password,from,to,subject,content);
+        if(to!=null && to.length>100){
+            return JsonResult.error("对不起,服务嚣拒绝发送超过100人");
+        }else{
+            return sendService.sendEmail(username,password,from,to,subject,content);
+        }
+
     }
 
     @ApiOperation(value = "发送带附件的邮件",httpMethod = "POST")
@@ -60,7 +65,7 @@ public class SendController {
                                       @ApiParam(name = "from", value = "发件人", required = true)
                                           @RequestParam(name="from",required = true) String from,
                                       @ApiParam(name = "to", value = "收件人", required = true)
-                                          @RequestParam(name="to",required = true) String to,
+                                          @RequestParam(name="to",required = true) String[] to,
                                       @ApiParam(name = "subject", value = "邮件标题", required = true)
                                           @RequestParam(name="subject",required = true) String subject,
                                       @ApiParam(name = "content", value = "邮件正文", required = true)
@@ -68,7 +73,11 @@ public class SendController {
                                       @ApiParam(name = "files", value = "上传附件(支持多个)", required = true)
                                           @RequestParam("files") MultipartFile[] files
     ) {
-        return sendService.sendEmailConAtt(username,password,from,to,subject,content,files);
+        if(to!=null && to.length>100){
+            return JsonResult.error("对不起,服务嚣拒绝发送超过100人");
+        }else{
+            return sendService.sendEmailConAtt(username,password,from,to,subject,content,files);
+        }
     }
 
     @ApiOperation(value = "上传附件(暂时不用此种异步方式)",httpMethod = "POST")

@@ -2,9 +2,14 @@ package com.cmg.mail.controller;
 
 
 import com.cmg.mail.controller.result.JsonResult;
+import com.cmg.mail.services.ConfigService;
 import com.cmg.mail.services.ProcessorService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import jakarta.mail.*;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Properties;
 
 @Controller
 @RequestMapping("/email")
@@ -32,6 +39,10 @@ public class ProcessorController {
     @Value("${mail.cctv.password}")
     private String password;
 
+    @Autowired
+    private ConfigService configService;
+
+
     @ApiOperation(value = "删除某封信",httpMethod = "POST")
     @RequestMapping(value = "/deleteEmailById",method = RequestMethod.POST)
     @ResponseBody
@@ -45,19 +56,38 @@ public class ProcessorController {
         return processorService.deleteEmailById(username,password,emailId,emailType);
     }
 
-    @ApiOperation(value = "标记某封信",httpMethod = "POST")
+    @ApiOperation(value = "标记某封信已读|未读|红旗",httpMethod = "POST")
     @RequestMapping(value = "/flagEmailById",method = RequestMethod.POST)
     @ResponseBody
     public JsonResult flagEmailById(HttpServletRequest request, HttpServletResponse response,
                                       @ApiParam(name = "emailId", value = "邮件ID集合", required = true)
                                       @RequestParam(name="emailId",required = true) String[] emailId,
-                                      @ApiParam(name = "emailType", value = "邮件类型(收件箱INBOX，草稿箱Drafts，已发送Sent Items，垃圾箱)", required = true,allowableValues = "INBOX,Drafts,Sent Items,Trash")
+                                      @ApiParam(name = "emailType", value = "邮件类型(收件箱INBOX，草稿箱Drafts，已发送Sent Items，垃圾箱Trash)", required = true,allowableValues = "INBOX,Drafts,Sent Items,Trash")
                                       @RequestParam(name="emailType",required = true) String emailType,
-                                    @ApiParam(name = "operaType", value = "标记类型", required = true,allowableValues = "SEEN,UNSEEN")
-                                        @RequestParam(name="operaType",required = true) String operaType
+                                    @ApiParam(name = "flag", value = "标记类型,已读TRUE，未读FALSE,红旗FLAGGED_TRUE,取消红旗FLAGGED_FALSE", required = true,allowableValues = "TRUE,FALSE,FLAGGED_TRUE,FLAGGED_FALSE")
+                                        @RequestParam(name="flag",required = true) String flag
 
     ) {
-        return processorService.flagEmailById(username,password,emailId,emailType,operaType);
+        return processorService.flagEmailById(username,password,emailId,emailType,flag);
+    }
+
+    @ApiOperation(value = "转发一封普通邮件，不带附件",httpMethod = "POST")
+    @RequestMapping(value = "/forwarderEmail",method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResult forwarderEmail(HttpServletRequest request, HttpServletResponse response,
+                                    @ApiParam(name = "emailId", value = "邮件ID集合", required = true)
+                                        @RequestParam(name="emailId",required = true) String emailId,
+                                    @ApiParam(name = "emailType", value = "邮件类型(收件箱INBOX，已发送Sent Items)", required = true,allowableValues = "INBOX,Sent Items")
+                                        @RequestParam(name="emailType",required = true) String emailType,
+                                    @ApiParam(name = "to", value = "收件人", required = true)
+                                        @RequestParam(name="to",required = true) String[] to,
+                                    @ApiParam(name = "content", value = "转发邮件内容", required = false)
+                                        @RequestParam(name="content",required = false) String content,
+                                    @ApiParam(name = "files", value = "上传附件(支持多个)", required = true)
+                                         @RequestParam("files") MultipartFile[] files
+
+                                     ) {
+        return processorService.forwarderEmail(username,password,emailId,emailType,to,content,files);
     }
 
 }

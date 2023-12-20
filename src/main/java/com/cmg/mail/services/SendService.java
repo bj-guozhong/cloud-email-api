@@ -31,7 +31,7 @@ public class SendService {
 	private ConfigService configService;
 
 	//TODO:发送普通邮件
-	public JsonResult sendEmail(String username,String password,String from,String to,String subject,String content){
+	public JsonResult sendEmail(String username,String password,String from,String[] to,String subject,String content){
 		if(StringUtils.isNotEmpty(username) && StringUtils.isNotEmpty(password)){
 			try {
 				Properties props = configService.configSmtp(username,password);
@@ -41,14 +41,16 @@ public class SendService {
 						return new PasswordAuthentication(from, password);
 					}
 				});
-				// 创建邮件
-				MimeMessage message = new MimeMessage(session);
-				message.setFrom(new InternetAddress(from));
-				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-				message.setSubject(subject);
-				message.setText(content);
-				// 发送邮件
-				Transport.send(message);
+				for (String toSomeBody:to){
+					// 创建邮件
+					MimeMessage message = new MimeMessage(session);
+					message.setFrom(new InternetAddress(from));
+					message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toSomeBody));
+					message.setSubject(subject);
+					message.setText(content);
+					// 发送邮件
+					Transport.send(message);
+				}
 				//store.close();
 				// 返回邮件列表
 				return JsonResult.success(true);
@@ -63,7 +65,7 @@ public class SendService {
 	}
 
 	//TODO:发送带附件的邮件
-	public JsonResult sendEmailConAtt(String username, String password, String from, String to, String subject, String content, MultipartFile[] files){
+	public JsonResult sendEmailConAtt(String username, String password, String from, String[] to, String subject, String content, MultipartFile[] files){
 		if(StringUtils.isNotEmpty(username) && StringUtils.isNotEmpty(password)){
 			try {
 				Properties props = configService.configSmtp(username,password);
@@ -79,38 +81,39 @@ public class SendService {
 				Transport ts = session.getTransport();
 				// 连接邮件服务器：邮箱类型，帐号，授权码代替密码（更安全）
 				ts.connect(configService.getSmtpHost(), username, password);
-				MimeMessage message = new MimeMessage(session);
-				message.setFrom(new InternetAddress(from));
-				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-				message.setSubject(subject);
 
-				//邮件内容部分---文本内容
-				MimeBodyPart textPart  = new MimeBodyPart(); //邮件中的文字部分
-				textPart.setText(content);
-				// 创建包含附件的Multipart对象
-				MimeMultipart multipart = new MimeMultipart();
+				//给多人发信
+				for (String toSomeBody:to) {
+					MimeMessage message = new MimeMessage(session);
+					message.setFrom(new InternetAddress(from));
+					message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toSomeBody));
+					message.setSubject(subject);
 
-				for(MultipartFile file:files){
-					// 将文本内容部分添加到Multipart对象中
-					multipart.addBodyPart(textPart);
-					// 创建附件部分
-					MimeBodyPart attachmentPart = new MimeBodyPart();
-					// 将MultipartFile文件对象转换为DataSource对象
-					DataSource source = new FileDataSource(CommonUtils.convertMultipartFileToFile(file));
-					// 设置附件数据处理器
-					attachmentPart.setDataHandler(new DataHandler(source));
-					// 设置附件文件名
-					attachmentPart.setFileName(file.getOriginalFilename());
-					// 将附件部分添加到Multipart对象中
-					multipart.addBodyPart(attachmentPart);
+					//邮件内容部分---文本内容
+					MimeBodyPart textPart = new MimeBodyPart(); //邮件中的文字部分
+					textPart.setText(content);
+					// 创建包含附件的Multipart对象
+					MimeMultipart multipart = new MimeMultipart();
+
+					for (MultipartFile file : files) {
+						// 将文本内容部分添加到Multipart对象中
+						multipart.addBodyPart(textPart);
+						// 创建附件部分
+						MimeBodyPart attachmentPart = new MimeBodyPart();
+						// 将MultipartFile文件对象转换为DataSource对象
+						DataSource source = new FileDataSource(CommonUtils.convertMultipartFileToFile(file));
+						// 设置附件数据处理器
+						attachmentPart.setDataHandler(new DataHandler(source));
+						// 设置附件文件名
+						attachmentPart.setFileName(file.getOriginalFilename());
+						// 将附件部分添加到Multipart对象中
+						multipart.addBodyPart(attachmentPart);
+					}
+					// 将Multipart对象设置为邮件的内容
+					message.setContent(multipart);
+					// 发送邮件
+					Transport.send(message);
 				}
-
-				// 将Multipart对象设置为邮件的内容
-				message.setContent(multipart);
-				// 发送邮件
-				// 发送邮件
-				Transport.send(message);
-
 				// 返回邮件列表
 				return JsonResult.success(true);
 			} catch (Exception e) {
