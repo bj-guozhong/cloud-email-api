@@ -1,6 +1,8 @@
 package com.cmg.mail.services;
 
+import com.cmg.mail.bean.Attachment;
 import com.cmg.mail.bean.MailEnum;
+import com.cmg.mail.bean.MailObject;
 import com.cmg.mail.controller.result.JsonResult;
 import com.cmg.mail.utils.CommonUtils;
 import jakarta.activation.DataHandler;
@@ -18,6 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
 import java.util.Properties;
 
 @Service("processorService")
@@ -132,8 +138,8 @@ public class ProcessorService {
         return JsonResult.success(true);
     }
 
-    //TODO:转发一封普通邮件，可带附件
-    public JsonResult forwarderEmail(String username, String password, String emailId, String emailType, String[] to, String content, MultipartFile[] files){
+    //TODO:准备转发邮件
+    public JsonResult forwarderEmail(String username, String password, String emailId, String emailType){
         if(StringUtils.isNotEmpty(username) && StringUtils.isNotEmpty(password)){
             try {
                 //IMAP收件服务嚣设置
@@ -141,15 +147,6 @@ public class ProcessorService {
                 Session session = Session.getDefaultInstance(props, null);
                 Store store = session.getStore(MailEnum.PROTOCOL.getLabel());
                 store.connect(configService.getImapHost(), username, password);
-
-                //SMTP发件服务嚣设置
-                Properties propsＳmtp = configService.configSmtp(username,password);
-                // 创建会话对象
-                Session sessionSmtp = Session.getInstance(propsＳmtp, new Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
-                    }
-                });
 
                 Folder draftsFolder = null;
                 if(emailType.equals(MailEnum.FOLDER_TYPE_INBOX.getLabel())) {
@@ -164,65 +161,62 @@ public class ProcessorService {
                 // 根据邮件标识符获取指定邮件
                 Message message =draftsFolder.getMessage(Integer.valueOf(emailId));
 
-                // 创建新邮件
-                Message forwardMessage = new MimeMessage(sessionSmtp);
+                MailObject mailObject = new MailObject();
 
-                // 设置新邮件的发件人、主题等信息
-                forwardMessage.setFrom(new InternetAddress(username));
-                forwardMessage.setSubject("Fwd: " + message.getSubject());
+                Address[] fromAddresses = message.getFrom();
+                for (Address fromAddress : fromAddresses) {
+                    String decodedFrom = CommonUtils.decodeFromAddress(fromAddress.toString());
+                    System.out.println("Decoded From: " + decodedFrom);
+                    mailObject.setFrom(decodedFrom);
+                }
+                mailObject.setSubject("Fwd: " + message.getSubject());
 
-                //邮件内容部分---文本内容
-                MimeBodyPart textPart = new MimeBodyPart(); //邮件中的文字部分
-
-                // 创建包含附件的Multipart对象
-                MimeMultipart multipart = new MimeMultipart();
-
-                forwardMessage.setSentDate(message.getSentDate());
+                mailObject.setDate(CommonUtils.converDateFormat(message.getSentDate()));
                 StringBuffer sb = new StringBuffer();
                 for (Address recipient : message.getAllRecipients()) {
-                    sb.append(recipient.toString() + ";");
+                    String decodedFrom = CommonUtils.decodeFromAddress(recipient.toString());
+                    sb.append(decodedFrom+ ";");
                 }
-
                 StringBuffer sbContent = new StringBuffer();
-                sbContent.append(content);
                 sbContent.append("\n\n\n\n\n\n---------- 原始邮件 ---------\n\n");
                 sbContent.append("发件人: " + message.getFrom()[0] + "\n");
                 sbContent.append("发送时间: " + CommonUtils.converDateFormat(message.getSentDate()) + "\n");
                 sbContent.append("收件人：" + sb.toString() + "\n");
                 sbContent.append("主题: " + message.getSubject() + "\n\n");
-                sbContent.append(message.getContent().toString() + "\n");
-                textPart.setText(sbContent.toString());
+                //sbContent.append(message.getContent().toString() + "\n");
 
-                for (MultipartFile file : files) {
-                    // 将文本内容部分添加到Multipart对象中
-                    multipart.addBodyPart(textPart);
-                    // 创建附件部分
-                    MimeBodyPart attachmentPart = new MimeBodyPart();
-                    // 将MultipartFile文件对象转换为DataSource对象
-                    DataSource source = new FileDataSource(CommonUtils.convertMultipartFileToFile(file));
-                    // 设置附件数据处理器
-                    attachmentPart.setDataHandler(new DataHandler(source));
-                    // 设置附件文件名
-                    attachmentPart.setFileName(file.getOriginalFilename());
-                    // 将附件部分添加到Multipart对象中
-                    multipart.addBodyPart(attachmentPart);
+                // 检查邮件是否有附件
+                if (message.isMimeType(MailEnum.EMAIL_MULTIPART_INFO.getLabel())) {
+                    // 将邮件转换为 Multipart 对象
+                    Multipart multipart = (Multipart) message.getContent();
+                    // 创建一个列表来存储附件信息
+                    List<Attachment> attachments = new ArrayList<>();
+                    // 遍历每个邮件部分
+                    for (int i = 0; i < multipart.getCount(); i++) {
+                        BodyPart bodyPart = multipart.getBodyPart(i);
+                        // 检查邮件部分是否是附件
+                        if (Part.ATTACHMENT.equalsIgnoreCase(bodyPart.getDisposition())) {
+                            // 获取附件文件名
+                            String fileName = bodyPart.getFileName();
+                            // 创建一个附件对象，并存储附件的文件名和内容类型
+                            Attachment attachment = new Attachment(fileName, bodyPart.getContentType());
+                            // 将附件对象添加到附件列表中
+                            attachments.add(attachment);
+                        }else{
+                            //mailObject.setBody(bodyPart.getContent().toString());
+                            sbContent.append(bodyPart.getContent().toString());
+                        }
+                    }
+                    //将附件封装
+                    mailObject.setAttachmentList(attachments);
                 }
-
-                // 将Multipart对象设置为邮件的内容
-                forwardMessage.setContent(multipart);
-
-                for (String toSomeBody:to) {
-                    forwardMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(toSomeBody));
-                    // 发送新邮件
-                    Transport.send(forwardMessage);
-                }
-
+                mailObject.setContent(sbContent.toString());
                 // 关闭收件箱和会话
-                draftsFolder.close(false);
+                draftsFolder.close(true);
                 store.close();
 
                 // 返回邮件列表
-                return JsonResult.success(true);
+                return JsonResult.success(mailObject);
             } catch (Exception e) {
                 e.printStackTrace();
                 // 处理异常，返回错误消息
@@ -234,8 +228,9 @@ public class ProcessorService {
     }
 
 
+
     //TODO:回复一封邮件
-    public JsonResult replyEmail(String username, String password, String emailId, String emailType, String[] to, String content, MultipartFile[] files) {
+    public JsonResult replyEmail(String username, String password, String emailId, String emailType) {
         if (StringUtils.isNotEmpty(username) && StringUtils.isNotEmpty(password)) {
             try {
                 //IMAP收件服务嚣设置
@@ -244,15 +239,7 @@ public class ProcessorService {
                 Store store = session.getStore(MailEnum.PROTOCOL.getLabel());
                 store.connect(configService.getImapHost(), username, password);
 
-                //SMTP发件服务嚣设置
-                Properties propsＳmtp = configService.configSmtp(username, password);
-                // 创建会话对象
-                Session sessionSmtp = Session.getInstance(propsＳmtp, new Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
-                    }
-                });
-
+                // 判断是收件箱还是发件箱？
                 Folder draftsFolder = null;
                 if (emailType.equals(MailEnum.FOLDER_TYPE_INBOX.getLabel())) {
                     draftsFolder = store.getFolder(MailEnum.FOLDER_TYPE_INBOX.getLabel());
@@ -264,67 +251,60 @@ public class ProcessorService {
                 draftsFolder.open(Folder.READ_ONLY);
 
                 // 根据邮件标识符获取指定邮件
-                Message originalMessage = draftsFolder.getMessage(Integer.valueOf(emailId));
-                // 创建回复邮件
-                Message replyMessage = new MimeMessage(sessionSmtp);
-                // 设置新邮件的发件人、主题等信息
-                replyMessage.setFrom(new InternetAddress(username));
-                replyMessage.setSubject("Re: " + originalMessage.getSubject());
-                replyMessage.setSentDate(originalMessage.getSentDate());
+                Message message =draftsFolder.getMessage(Integer.valueOf(emailId));
 
-                //邮件内容部分---文本内容
-                MimeBodyPart textPart = new MimeBodyPart(); //邮件中的文字部分
+                MailObject mailObject = new MailObject();
+                mailObject.setFrom(username);
+                mailObject.setTo(message.getFrom());
+                mailObject.setSubject("Fwd: " + message.getSubject());
 
-                // 创建包含附件的Multipart对象
-                MimeMultipart multipart = new MimeMultipart();
-
-                // 添加多个收件人
+                mailObject.setDate(CommonUtils.converDateFormat(message.getSentDate()));
                 StringBuffer sb = new StringBuffer();
-                for (Address recipient : originalMessage.getAllRecipients()) {
-                    sb.append(recipient.toString() + ";");
+                for (Address recipient : message.getAllRecipients()) {
+                    String decodedFrom = CommonUtils.decodeFromAddress(recipient.toString());
+                    sb.append(decodedFrom+ ";");
                 }
 
-                // 回复邮件时带着原始邮件内容
                 StringBuffer sbContent = new StringBuffer();
-                sbContent.append(content);
                 sbContent.append("\n\n\n\n\n\n---------- 原始邮件 ---------\n\n");
-                sbContent.append("发件人: " + originalMessage.getFrom()[0] + "\n");
-                sbContent.append("发送时间: " + CommonUtils.converDateFormat(originalMessage.getSentDate()) + "\n");
+                sbContent.append("发件人: " + message.getFrom()[0] + "\n");
+                sbContent.append("发送时间: " + CommonUtils.converDateFormat(message.getSentDate()) + "\n");
                 sbContent.append("收件人：" + sb.toString() + "\n");
-                sbContent.append("主题: " + originalMessage.getSubject() + "\n\n");
-                sbContent.append(originalMessage.getContent().toString() + "\n");
-                textPart.setText(sbContent.toString());
+                sbContent.append("主题: " + message.getSubject() + "\n\n");
+                sbContent.append(message.getContent().toString() + "\n");
+                mailObject.setContent(sbContent.toString());
 
-                for (MultipartFile file : files) {
-                    // 将文本内容部分添加到Multipart对象中
-                    multipart.addBodyPart(textPart);
-                    // 创建附件部分
-                    MimeBodyPart attachmentPart = new MimeBodyPart();
-                    // 将MultipartFile文件对象转换为DataSource对象
-                    DataSource source = new FileDataSource(CommonUtils.convertMultipartFileToFile(file));
-                    // 设置附件数据处理器
-                    attachmentPart.setDataHandler(new DataHandler(source));
-                    // 设置附件文件名
-                    attachmentPart.setFileName(file.getOriginalFilename());
-                    // 将附件部分添加到Multipart对象中
-                    multipart.addBodyPart(attachmentPart);
-                }
-
-                // 将Multipart对象设置为邮件的内容
-                replyMessage.setContent(multipart);
-
-                for (String toSomeBody:to) {
-                    replyMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(toSomeBody));
-                    // 发送新邮件
-                    Transport.send(replyMessage);
+                // 检查邮件是否有附件
+                if (message.isMimeType(MailEnum.EMAIL_MULTIPART_INFO.getLabel())) {
+                    // 将邮件转换为 Multipart 对象
+                    Multipart multipart = (Multipart) message.getContent();
+                    // 创建一个列表来存储附件信息
+                    List<Attachment> attachments = new ArrayList<>();
+                    // 遍历每个邮件部分
+                    for (int i = 0; i < multipart.getCount(); i++) {
+                        BodyPart bodyPart = multipart.getBodyPart(i);
+                        // 检查邮件部分是否是附件
+                        if (Part.ATTACHMENT.equalsIgnoreCase(bodyPart.getDisposition())) {
+                            // 获取附件文件名
+                            String fileName = bodyPart.getFileName();
+                            // 创建一个附件对象，并存储附件的文件名和内容类型
+                            Attachment attachment = new Attachment(fileName, bodyPart.getContentType());
+                            // 将附件对象添加到附件列表中
+                            attachments.add(attachment);
+                        }else{
+                            mailObject.setBody(bodyPart.getContent().toString());
+                        }
+                    }
+                    //将附件封装
+                    mailObject.setAttachmentList(attachments);
                 }
 
                 // 关闭收件箱和会话
-                draftsFolder.close(false);
+                draftsFolder.close(true);
                 store.close();
 
                 // 返回邮件列表
-                return JsonResult.success(true);
+                return JsonResult.success(mailObject);
 
             }catch (Exception e) {
                 e.printStackTrace();

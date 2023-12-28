@@ -71,24 +71,30 @@ public class ProcessorController {
         return processorService.flagEmailById(username,password,emailId,emailType,flag);
     }
 
-    @ApiOperation(value = "转发一封普通邮件，不带附件",httpMethod = "POST")
+    @ApiOperation(value = "准备转发邮件-",httpMethod = "POST")
     @RequestMapping(value = "/forwarderEmail",method = RequestMethod.POST)
     @ResponseBody
     public JsonResult forwarderEmail(HttpServletRequest request, HttpServletResponse response,
                                     @ApiParam(name = "emailId", value = "邮件ID集合", required = true)
                                         @RequestParam(name="emailId",required = true) String emailId,
                                     @ApiParam(name = "emailType", value = "邮件类型(收件箱INBOX，已发送Sent Items)", required = true,allowableValues = "INBOX,Sent Items")
-                                        @RequestParam(name="emailType",required = true) String emailType,
-                                    @ApiParam(name = "to", value = "收件人", required = true)
-                                        @RequestParam(name="to",required = true) String[] to,
-                                    @ApiParam(name = "content", value = "转发邮件内容", required = false)
-                                        @RequestParam(name="content",required = false) String content,
-                                    @ApiParam(name = "files", value = "上传附件(支持多个)", required = true)
-                                         @RequestParam("files") MultipartFile[] files
-
+                                        @RequestParam(name="emailType",required = true) String emailType
                                      ) {
-        return processorService.forwarderEmail(username,password,emailId,emailType,to,content,files);
+        return processorService.forwarderEmail(username,password,emailId,emailType);
     }
+
+    @ApiOperation(value = "准备转发邮件",httpMethod = "POST")
+    @RequestMapping(value = "/replyEmail",method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResult replyEmail(HttpServletRequest request, HttpServletResponse response,
+                                     @ApiParam(name = "emailId", value = "邮件ID集合", required = true)
+                                     @RequestParam(name="emailId",required = true) String emailId,
+                                     @ApiParam(name = "emailType", value = "邮件类型(收件箱INBOX，已发送Sent Items)", required = true,allowableValues = "INBOX,Sent Items")
+                                     @RequestParam(name="emailType",required = true) String emailType
+    ) {
+        return processorService.replyEmail(username,password,emailId,emailType);
+    }
+
 
 }
 

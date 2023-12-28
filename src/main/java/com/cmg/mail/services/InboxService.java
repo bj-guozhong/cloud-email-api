@@ -3,6 +3,7 @@ package com.cmg.mail.services;
 import com.cmg.mail.bean.MailEnum;
 import com.cmg.mail.bean.MailObject;
 import com.cmg.mail.controller.result.JsonResult;
+import com.cmg.mail.utils.CommonUtils;
 import jakarta.mail.*;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -98,7 +99,7 @@ public class InboxService {
 					mailObject.setSubject(message.getSubject());
 					mailObject.setFrom(String.valueOf(message.getFrom()[0]));
 					mailObject.setTo(message.getAllRecipients());
-					mailObject.setDate(message.getSentDate().toString());
+					mailObject.setDate(CommonUtils.converDateFormat(message.getSentDate()));
 					mailObject.setBody(message.getContent().toString());
 					// 将邮件信息添加到数组中
 					mailObjectArrayList.add(mailObject);

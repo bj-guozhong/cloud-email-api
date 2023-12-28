@@ -48,6 +48,7 @@ public class MailObject  {
      * 邮件内容
      */
     private String body;
+
     private String content;
 
     /**
