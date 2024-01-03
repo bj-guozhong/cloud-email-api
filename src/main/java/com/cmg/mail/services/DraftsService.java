@@ -5,6 +5,7 @@ import com.cmg.mail.bean.MailEnum;
 import com.cmg.mail.bean.MailObject;
 import com.cmg.mail.controller.result.JsonResult;
 import com.cmg.mail.utils.CommonUtils;
+import com.cmg.mail.utils.EmailUtils;
 import jakarta.activation.DataHandler;
 import jakarta.activation.DataSource;
 import jakarta.activation.FileDataSource;
@@ -30,7 +31,7 @@ public class DraftsService {
 	private ConfigService configService;
 
 	//TODO:获取草稿箱邮件列表
-	public JsonResult draftsEmailsReader(String username,String password,String pageNumber,String pageSize){
+	public JsonResult draftsEmailsReader(String username,String password,String pageNumber,String pageSize,String sortType,String filterName){
 		if(StringUtils.isNotEmpty(username) && StringUtils.isNotEmpty(password)){
 			try {
 				Properties props = configService.config(username,password);
@@ -42,15 +43,9 @@ public class DraftsService {
 				drafts.open(Folder.READ_ONLY);
 				// 获取草稿箱中的所有邮件，并按照日期降序排序
 				Message[] messages = drafts.getMessages();
-				List<Message> messageList = Arrays.asList(messages);
-				Collections.sort(messageList, (m1, m2) -> {
-					try {
-						return m2.getSentDate().compareTo(m1.getSentDate());
-					} catch (MessagingException e) {
-						e.printStackTrace();
-						return 0;
-					}
-				});
+
+				// 过滤邮件 20240103 add
+				List<Message> messageList = EmailUtils.sortAndFilterMessage(sortType,filterName,messages);
 
 				// 获取邮件列表
 				List<Message> currentPageMessages;

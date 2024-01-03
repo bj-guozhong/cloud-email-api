@@ -56,6 +56,22 @@ public class ProcessorController {
         return processorService.deleteEmailById(username,password,emailId,emailType);
     }
 
+    @ApiOperation(value = "移动某封信或某些信",httpMethod = "POST")
+    @RequestMapping(value = "/moveEmailById",method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResult moveEmailById(HttpServletRequest request, HttpServletResponse response,
+                                      @ApiParam(name = "emailId", value = "邮件ID集合", required = true)
+                                        @RequestParam(name="emailId",required = true) String[] emailId,
+                                      @ApiParam(name = "sourceBox", value = "邮件类型(收件箱INBOX,已发送Sent Items，已删除，垃圾邮件Trash,病毒文件夹Virus Items)", required = true,
+                                              allowableValues = "INBOX,Sent Items,Trash,Virus")
+                                        @RequestParam(name="sourceBox",required = true) String sourceBox,
+                                      @ApiParam(name = "targetBox", value = "邮件类型(收件箱INBOX,已发送Sent Items，已删除，垃圾邮件Trash,病毒文件夹Virus Items)", required = true,
+                                              allowableValues = "INBOX,Sent Items,Trash,Virus")
+                                        @RequestParam(name="targetBox",required = true) String targetBox
+                                    ) {
+        return processorService.moveEmailById(username,password,emailId,sourceBox,targetBox);
+    }
+
     @ApiOperation(value = "标记某封信已读|未读|红旗",httpMethod = "POST")
     @RequestMapping(value = "/flagEmailById",method = RequestMethod.POST)
     @ResponseBody
@@ -64,7 +80,7 @@ public class ProcessorController {
                                       @RequestParam(name="emailId",required = true) String[] emailId,
                                       @ApiParam(name = "emailType", value = "邮件类型(收件箱INBOX，草稿箱Drafts，已发送Sent Items，垃圾箱Trash)", required = true,allowableValues = "INBOX,Drafts,Sent Items,Trash")
                                       @RequestParam(name="emailType",required = true) String emailType,
-                                    @ApiParam(name = "flag", value = "标记类型,已读TRUE，未读FALSE,红旗FLAGGED_TRUE,取消红旗FLAGGED_FALSE", required = true,allowableValues = "TRUE,FALSE,FLAGGED_TRUE,FLAGGED_FALSE")
+                                    @ApiParam(name = "flag", value = "标记类型,已读TRUE，未读FALSE,红旗FLAGGED_TRUE,取消红旗FLAGGED_FALSE,紧急URGENT、普通NORMAL、缓慢SLOW、", required = true,allowableValues = "TRUE,FALSE,FLAGGED_TRUE,FLAGGED_FALSE,URGENT,NORMAL,SLOW")
                                         @RequestParam(name="flag",required = true) String flag
 
     ) {

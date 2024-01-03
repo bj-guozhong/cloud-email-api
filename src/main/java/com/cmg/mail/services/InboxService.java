@@ -4,7 +4,10 @@ import com.cmg.mail.bean.MailEnum;
 import com.cmg.mail.bean.MailObject;
 import com.cmg.mail.controller.result.JsonResult;
 import com.cmg.mail.utils.CommonUtils;
+import com.cmg.mail.utils.EmailUtils;
 import jakarta.mail.*;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +56,7 @@ public class InboxService {
 	}
 
 	//TODO:获取邮件列表
-	public JsonResult fetchEmails(String username,String password,String pageNumber,String pageSize){
+	public JsonResult fetchEmails(String username,String password,String pageNumber,String pageSize,String sortType,String filterName){
 		if(StringUtils.isNotEmpty(username) && StringUtils.isNotEmpty(password)){
 			try {
 				Properties props = configService.config(username,password);
@@ -65,15 +68,9 @@ public class InboxService {
 				inbox.open(Folder.READ_ONLY);
 				// 获取收件箱中的所有邮件，并按照日期降序排序
 				Message[] messages = inbox.getMessages();
-				List<Message> messageList = Arrays.asList(messages);
-				Collections.sort(messageList, (m1, m2) -> {
-					try {
-						return m2.getSentDate().compareTo(m1.getSentDate());
-					} catch (MessagingException e) {
-						e.printStackTrace();
-						return 0;
-					}
-				});
+
+				// 过滤邮件 20240103 add
+				List<Message> messageList = EmailUtils.sortAndFilterMessage(sortType,filterName,messages);
 
 				// 获取邮件列表
 				List<Message> currentPageMessages;

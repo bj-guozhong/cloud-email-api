@@ -10,6 +10,9 @@ public enum MailEnum {
     FOLDER_TYPE_SENT("Sent Items"),
     FOLDER_TYPE_INBOX("INBOX"),
     FOLDER_TYPE_DRAFTS("Drafts"),
+    FOLDER_TYPE_DELETE("Delete"),
+    FOLDER_TYPE_TRASH("Trash"),
+    FOLDER_TYPE_VIRUS("Virus"),
 
     PROPS_MAIL_IMAP_HOST("mail.imap.host"),
     PROPS_MAIL_IMAP_PORT("mail.imap.port"),
