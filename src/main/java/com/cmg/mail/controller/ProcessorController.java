@@ -80,7 +80,7 @@ public class ProcessorController {
                                       @RequestParam(name="emailId",required = true) String[] emailId,
                                       @ApiParam(name = "emailType", value = "邮件类型(收件箱INBOX，草稿箱Drafts，已发送Sent Items，垃圾箱Trash)", required = true,allowableValues = "INBOX,Drafts,Sent Items,Trash")
                                       @RequestParam(name="emailType",required = true) String emailType,
-                                    @ApiParam(name = "flag", value = "标记类型,已读TRUE，未读FALSE,红旗FLAGGED_TRUE,取消红旗FLAGGED_FALSE,紧急URGENT、普通NORMAL、缓慢SLOW、", required = true,allowableValues = "TRUE,FALSE,FLAGGED_TRUE,FLAGGED_FALSE,URGENT,NORMAL,SLOW")
+                                    @ApiParam(name = "flag", value = "标记类型,已读SEEN_TRUE，未读SEEN_FALSE,红旗FLAGGED_TRUE,取消红旗FLAGGED_FALSE,紧急URGENT、普通NORMAL、缓慢SLOW、", required = true,allowableValues = "TRUE,FALSE,FLAGGED_TRUE,FLAGGED_FALSE,URGENT,NORMAL,SLOW")
                                         @RequestParam(name="flag",required = true) String flag
 
     ) {

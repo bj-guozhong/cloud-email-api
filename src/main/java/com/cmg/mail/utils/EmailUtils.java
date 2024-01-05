@@ -200,21 +200,23 @@ public class EmailUtils {
 	//根据相应参数返回对应的文件夹
 	public static Folder getFolderByBoxType(String sourceBox,Store store){
 		try {
-			Folder draftsFolder = null;
+			Folder commonFolder = null;
 			if(sourceBox.equals(MailEnum.FOLDER_TYPE_SENT.getLabel())){
-				draftsFolder = store.getFolder(MailEnum.FOLDER_TYPE_SENT.getLabel());
+				commonFolder = store.getFolder(MailEnum.FOLDER_TYPE_SENT.getLabel());
+			}else if(sourceBox.equals(MailEnum.FOLDER_TYPE_DRAFTS.getLabel())) {
+				commonFolder = store.getFolder(MailEnum.FOLDER_TYPE_DRAFTS.getLabel());
 			}else if(sourceBox.equals(MailEnum.FOLDER_TYPE_INBOX.getLabel())) {
-				draftsFolder = store.getFolder(MailEnum.FOLDER_TYPE_INBOX.getLabel());
+				commonFolder = store.getFolder(MailEnum.FOLDER_TYPE_INBOX.getLabel());
 			}else if(sourceBox.equals(MailEnum.FOLDER_TYPE_DELETE.getLabel())) {
-				draftsFolder = store.getFolder(MailEnum.FOLDER_TYPE_DELETE.getLabel());
+				commonFolder = store.getFolder(MailEnum.FOLDER_TYPE_DELETE.getLabel());
 			}else if(sourceBox.equals(MailEnum.FOLDER_TYPE_TRASH.getLabel())) {
-				draftsFolder = store.getFolder(MailEnum.FOLDER_TYPE_TRASH.getLabel());
+				commonFolder = store.getFolder(MailEnum.FOLDER_TYPE_TRASH.getLabel());
 			}else if(sourceBox.equals(MailEnum.FOLDER_TYPE_VIRUS.getLabel())) {
-				draftsFolder = store.getFolder(MailEnum.FOLDER_TYPE_VIRUS.getLabel());
+				commonFolder = store.getFolder(MailEnum.FOLDER_TYPE_VIRUS.getLabel());
 			}else{
 				return null;
 			}
-			return draftsFolder;
+			return commonFolder;
 		} catch (MessagingException e) {
 			e.printStackTrace();
 			return null;

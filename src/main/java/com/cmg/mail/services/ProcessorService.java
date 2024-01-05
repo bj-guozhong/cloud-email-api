@@ -143,30 +143,28 @@ public class ProcessorService {
     public JsonResult flagEmailById(String username,String password,String[] emailId,String emailType,String flag){
 
         try {
+            // 建立邮箱连接
             Properties props = configService.config(username, password);
             Session session = Session.getDefaultInstance(props, null);
             Store store = session.getStore(MailEnum.PROTOCOL.getLabel());
             store.connect(configService.getImapHost(), username, password);
-            Folder draftsFolder = null;
-            if(emailType.equals(MailEnum.FOLDER_TYPE_DRAFTS.getLabel())){
-                draftsFolder = store.getFolder(MailEnum.FOLDER_TYPE_DRAFTS.getLabel());
-            }else if(emailType.equals(MailEnum.FOLDER_TYPE_INBOX.getLabel())) {
-                draftsFolder = store.getFolder(MailEnum.FOLDER_TYPE_INBOX.getLabel());
-            }else if(emailType.equals(MailEnum.FOLDER_TYPE_SENT.getLabel())) {
-                draftsFolder = store.getFolder(MailEnum.FOLDER_TYPE_SENT.getLabel());
-            }else{
-                return JsonResult.error("对不起,邮箱类型参数不合法,请检查后重试!");
+
+            // 判断邮件是收件箱、发件箱、已删除、垃圾邮件、病毒文件夹
+            Folder draftsFolder = EmailUtils.getFolderByBoxType(emailType,store);
+            if(draftsFolder==null){
+                return JsonResult.error("对不起,源邮件类型参数不合法,请检查后重试!");
             }
             draftsFolder.open(Folder.READ_WRITE);
+
             if(emailId!=null && emailId.length>0){
                 for(String  id:emailId){
                     // 根据邮件标识符获取指定邮件
                     Message message =draftsFolder.getMessage(Integer.valueOf(id));
-                    if(flag.equals("TRUE")){
+                    if(flag.equals("SEEN_TRUE")){
                         // 将该邮件置为已读未读
                         message.setFlag(Flags.Flag.SEEN, true);
                     }
-                    if(flag.equals("FALSE")){
+                    if(flag.equals("SEEN_FALSE")){
                         message.setFlag(Flags.Flag.SEEN, false);
                     }
                     if(flag.equals("FLAGGED_TRUE")){
@@ -181,15 +179,14 @@ public class ProcessorService {
                         message.setHeader("X-Priority", "1"); // 1 表示最高优先级（紧急）
                     }
                     if(flag.equals("NORMAL")){
-                        // 紧急
+                        // 普通
                         message.setHeader("X-Priority", "3"); // 3 表示最高优先级（普通）
                     }
                     if(flag.equals("SLOW")){
-                        // 紧急
+                        // 缓慢
                         message.setHeader("X-Priority", "5"); // 5 表示最高优先级（缓慢）
                     }
                 }
-
             }else{
                 // 关闭连接
                 draftsFolder.close(true);
@@ -217,13 +214,10 @@ public class ProcessorService {
                 Store store = session.getStore(MailEnum.PROTOCOL.getLabel());
                 store.connect(configService.getImapHost(), username, password);
 
-                Folder draftsFolder = null;
-                if(emailType.equals(MailEnum.FOLDER_TYPE_INBOX.getLabel())) {
-                    draftsFolder = store.getFolder(MailEnum.FOLDER_TYPE_INBOX.getLabel());
-                }else if(emailType.equals(MailEnum.FOLDER_TYPE_SENT.getLabel())) {
-                    draftsFolder = store.getFolder(MailEnum.FOLDER_TYPE_SENT.getLabel());
-                }else{
-                    return JsonResult.error("对不起,邮箱类型参数不合法,请检查后重试!");
+                // 判断邮件是收件箱、发件箱、已删除、垃圾邮件、病毒文件夹
+                Folder draftsFolder = EmailUtils.getFolderByBoxType(emailType,store);
+                if(draftsFolder==null){
+                    return JsonResult.error("对不起,源邮件类型参数不合法,请检查后重试!");
                 }
                 draftsFolder.open(Folder.READ_ONLY);
 
@@ -306,14 +300,10 @@ public class ProcessorService {
                 Store store = session.getStore(MailEnum.PROTOCOL.getLabel());
                 store.connect(configService.getImapHost(), username, password);
 
-                // 判断是收件箱还是发件箱？
-                Folder draftsFolder = null;
-                if (emailType.equals(MailEnum.FOLDER_TYPE_INBOX.getLabel())) {
-                    draftsFolder = store.getFolder(MailEnum.FOLDER_TYPE_INBOX.getLabel());
-                } else if (emailType.equals(MailEnum.FOLDER_TYPE_SENT.getLabel())) {
-                    draftsFolder = store.getFolder(MailEnum.FOLDER_TYPE_SENT.getLabel());
-                } else {
-                    return JsonResult.error("对不起,邮箱类型参数不合法,请检查后重试!");
+                // 判断邮件是收件箱、发件箱、已删除、垃圾邮件、病毒文件夹
+                Folder draftsFolder = EmailUtils.getFolderByBoxType(emailType,store);
+                if(draftsFolder==null){
+                    return JsonResult.error("对不起,源邮件类型参数不合法,请检查后重试!");
                 }
                 draftsFolder.open(Folder.READ_ONLY);
 
